@@ -1,0 +1,3 @@
+module Pageboy
+  VERSION = '0.1'
+end
