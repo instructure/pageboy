@@ -6,12 +6,22 @@ require 'pageboy/page_turner/link_header'
 
 module Pageboy
   def self.paginate(target, opts={})
-    Pageboy::Config.turners.each_pair do |klass, matchers|
+    Pageboy::Config.turners.each_pair do |page_turner_class, matchers|
       matchers.each do |matcher|
-        return klass.new(target, opts) if matcher.call(target)
+        return page_turner_class.new(target, opts) if matcher.call(target)
       end
     end
     raise "could not find suitable PageTurner for #{target}"
+  end
+
+  def self.each(target, opts={}, &block)
+    page_turner = paginate(target, opts)
+    Pageboy::Collator(page_turner).each(&block)
+  end
+
+  def self.map(target, opts={}, &block)
+    page_turner = paginate(target, opts)
+    Pageboy::Collator(page_turner).map(&block)
   end
 
   def self.register_page_turner(klass, &block)

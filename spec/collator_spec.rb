@@ -6,11 +6,16 @@ describe Pageboy::Collator do
   let(:page_turner) { Pageboy::PageTurner::Array.new(array, :per_page => 3) }
   let(:collator) { Pageboy::Collator.new(page_turner) }
 
-  it "collates" do
+  it "collates with each" do
     items = []
     collator.each do |item|
       items << item
     end
-    items.should == ["some", "words", "to", "paginate"]
+    items.should == %w(some words to paginate)
+  end
+
+  it "collates with map" do
+    collator.map { |item| item + '.' }.
+      should == %w(some. words. to. paginate.)
   end
 end

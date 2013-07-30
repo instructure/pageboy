@@ -1,5 +1,7 @@
 module Pageboy
   class Collator
+    include Enumerable
+
     def initialize(page_turner)
       @page_turner = page_turner
     end
