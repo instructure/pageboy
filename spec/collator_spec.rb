@@ -11,11 +11,11 @@ describe Pageboy::Collator do
     collator.each do |item|
       items << item
     end
-    items.should == %w(some words to paginate)
+    expect(items).to eq(%w(some words to paginate))
   end
 
   it "collates with map" do
-    collator.map { |item| item + '.' }.
-      should == %w(some. words. to. paginate.)
+    expect(collator.map { |item| item + '.' }).
+      to eq(%w(some. words. to. paginate.))
   end
 end

@@ -6,22 +6,22 @@ describe Pageboy do
     let(:turner) { Pageboy::PageTurner::Array.new(array, :per_page => 3) }
 
     it "paginates an array" do
-      turner.first.prev.should be_nil
-      turner.first.to_a.should == %w(this is an)
-      turner.first.next.to_a.should == %w(array with words)
-      turner.first.next.next.to_a.should == %w(in it)
-      turner.first.next.next.next.should be_nil
+      expect(turner.first.prev).to be_nil
+      expect(turner.first.to_a).to eq(%w(this is an))
+      expect(turner.first.next.to_a).to eq(%w(array with words))
+      expect(turner.first.next.next.to_a).to eq(%w(in it))
+      expect(turner.first.next.next.next).to be_nil
     end
 
     it "can turn to any page" do
-      turner.page(2).to_a.should == %w(array with words)
+      expect(turner.page(2).to_a).to eq(%w(array with words))
     end
   end
 
   context "matching for page turners" do
     it "chooses PageTurner::Array for arrays" do
       turner = Pageboy.paginate([])
-      turner.should be_a(Pageboy::PageTurner::Array)
+      expect(turner).to be_a(Pageboy::PageTurner::Array)
     end
   end
 end

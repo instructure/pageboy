@@ -21,7 +21,7 @@ describe Pageboy do
           :body => [{"name" => "test1"}],
           :headers => {"Link" => next_link})
       page = link_header.first
-      page.items.should == [{"name" => "test1"}]
+      expect(page.items).to eq([{"name" => "test1"}])
 
       # Second page
       stub_request(:get, "http://canvas.dev/api/v1/thing?page=2").
@@ -30,11 +30,11 @@ describe Pageboy do
           :body => [{"name" => "test2"}],
           :headers => {})
       page = page.next
-      page.items.should == [{"name" => "test2"}]
+      expect(page.items).to eq([{"name" => "test2"}])
 
       # No more pages
       page = page.next
-      page.should be_nil
+      expect(page).to be_nil
 
     end
   end
